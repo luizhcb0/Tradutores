@@ -1,0 +1,1 @@
+{int Teste; if A <- B else C <- 0}
