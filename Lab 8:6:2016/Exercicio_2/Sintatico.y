@@ -13,46 +13,61 @@
 	} symbol_t;
 	
 	symbol_t st;
+    
+    typedef struct elemento {
+        symbol_t *val;
+        struct elemento *prox;
+    } listaS;
 
-	typedef struct node {
-	    symbol_t* val;
-	    struct node * next;
-	} node_t;
 
-	node_t* create(void){
-		node_t * head = NULL;
-		head = malloc(sizeof(node_t));
-		if (head == NULL) {
-		    
-			printf("Erro na criacao da lista\n");
-			return NULL;
-		}
-		
-		head->next = NULL;
-		return head;
-	}
+    void ConstroiLista(listaS **epinicio) {
+        listaS *p1;
+        char c;
+        printf("Construiu a lista\n");
+        *epinicio = NULL;
+    }
+    
+    void InsereLista(listaS **epinicio, symbol_t *valnovo){
+        listaS *p1, *p2;
+        
+        p1 = malloc (sizeof (listaS));
+        p1->val = valnovo;
+        if (*epinicio == NULL) {
+            *epinicio = p1;
+            p1->prox = NULL;
+        }
+        else
+        if ((*epinicio)->val > valnovo) {
+            p1->prox = *epinicio;
+            *epinicio = p1;
+        }
+        else {
+            p2 = *epinicio;
+            while ((p2->prox != NULL) && (p2->prox->val < valnovo))
+            p2 = p2->prox;
+            p1->prox = p2->prox;
+            p2->prox = p1;
+        }       
+    }
+    
+    int ProcuraLista(listaS *pinicio, char *chave) {
+        listaS *p1;
+        
+        p1 = pinicio;
+        while ((p1 != NULL)) {
+            printf("percorrendo : %s\n",p1->val->id);
+            if(!strcmp( p1->val->id, chave)) {
+                return 1;
+            }
+            p1 = p1->prox;
+        }
+        return 0;
+    }
+    
+    listaS *lista = NULL;
+    
+    
 
-	void push(node_t * head, symbol_t* val) {
-	    node_t * current = head;
-	    while (current->next != NULL) {
-	        current = current->next;
-	    }
-	
-	    /* now we can add a new variable */
-	    current->next = malloc(sizeof(node_t));
-	    current->next->val = val;
-	    current->next->next = NULL;
-	}
-
-	int search_list(node_t * head, char* token_var) {
-	    node_t * current = head;
-	
-	    while (current != NULL) {
-		if( !strcmp( current->val->id, token_var) )
-			return 1; //se igual
-	    }
-		return 0;
-	}
 %}
 
 %union{
@@ -83,19 +98,44 @@ declaration_list:   declaration_list declaration  {;}
 ;
 declaration:       var_declaration  {;}
 ;
-var_declaration:    type_specifier ID ';' { 	st.id = $<cadeia>2; printf("Aqui tem uma declaracao id %s!\n", st.id  );
-					}
+var_declaration:    type_specifier ID ';' { //st.id = $<cadeia>2;
+                                            if (lista == NULL) {
+                                                ConstroiLista(&lista);
+                                            }
+                                            if (ProcuraLista(lista,st.id) == 0) {
+                                                InsereLista(&lista, $<cadeia>2);
+                                            }
+                                            else {
+                                                printf("Variavel já presente\n");
+                                            }
+                                            printf("Aqui tem uma declaracao id %s!\n", $<cadeia>2  );}
 ;
 type_specifier: TYPE {;}
 ;
 lista_cmds: cmd		{;}
             | cmd ';' lista_cmds	{;}
 ;
-cmd:		ID OP_ATTR exp			{printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );}
+cmd:		ID OP_ATTR exp			{
+                                        printf("%s\n",st.id);
+                                        if (ProcuraLista(lista,$<cadeia>1) == 0) {
+                                            printf("Variavel não foi declarada");
+                                        }
+                                        else {
+                                            printf("retornou 1\n");
+                                        }
+                                        printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );}
             | cond
 ;
 exp:		INT				{;}
-            | ID				{printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );}
+            | ID				{
+                                    printf("%s\n",$<cadeia>1);
+                                    printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );
+                                    if (ProcuraLista(lista,$<cadeia>1) == 0) {
+                                        printf("Variavel não foi declarada");
+                                    }
+                                    else {
+                                        printf("retornou 1\n");
+                                    }}
             | exp exp OP_ART		{;}
 ;
 cond:       OP_IF cmd OP_ELSE cmd  {;}

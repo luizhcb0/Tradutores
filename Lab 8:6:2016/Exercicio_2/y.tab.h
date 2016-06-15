@@ -73,7 +73,7 @@ typedef union YYSTYPE
 	char* cadeia;
 }
 /* Line 1529 of yacc.c.  */
-#line 77 "Sintatico.tab.h"
+#line 77 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
