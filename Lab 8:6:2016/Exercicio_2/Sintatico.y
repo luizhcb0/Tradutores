@@ -55,7 +55,7 @@
             p1->prox = p2->prox;
             p2->prox = p1;
         }
-        printf("valor na lista = %s %s\n",p1->val->tipo, p1->val->id);
+        printf("valor na lista = %s %s\n",(*epinicio)->val->tipo, (*epinicio)->val->id);
     }
     
     int ProcuraLista(listaS *pinicio, char *chave) {
@@ -64,6 +64,9 @@
         p1 = pinicio;
         while ((p1 != NULL)) {
             //printf("percorrendo : %s\n",p1->val->id);
+            printf("%d e %d\n",&(p1)->val->id, &chave);
+            getchar();
+            getchar();
             if(!strcmp( p1->val->id, chave)) {
                 return 1;
             }
@@ -112,7 +115,7 @@ var_declaration:    type_specifier ID ';' {
                                             if (lista == NULL) {
                                                 ConstroiLista(&lista);
                                             }
-                                            if (ProcuraLista(lista,st.id) == 0) {
+                                            if (ProcuraLista(lista, $<cadeia>2) == 0) {
                                                 InsereLista(&lista, $<cadeia>1, $<cadeia>2);
                                             }
                                             else {
