@@ -753,7 +753,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 15 "lexico_novo.l"
-{return TYPE;}
+{ yylval.cadeia= (char*) strdup(yytext); return TYPE;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP

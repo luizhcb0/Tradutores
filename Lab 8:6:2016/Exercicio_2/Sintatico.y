@@ -63,7 +63,7 @@
         
         p1 = pinicio;
         while ((p1 != NULL)) {
-            printf("percorrendo : %s\n",p1->val->id);
+            //printf("percorrendo : %s\n",p1->val->id);
             if(!strcmp( p1->val->id, chave)) {
                 return 1;
             }
@@ -73,6 +73,8 @@
     }
     
     listaS *lista = NULL;
+    char *vetorTemp = NULL;
+    
     
     
 
@@ -106,7 +108,7 @@ declaration_list:   declaration_list declaration  {;}
 ;
 declaration:       var_declaration  {;}
 ;
-var_declaration:    type_specifier ID ';' { printf("tipo = %s id = %s\n",)st.id = $<cadeia>2;
+var_declaration:    type_specifier ID ';' {
                                             if (lista == NULL) {
                                                 ConstroiLista(&lista);
                                             }
@@ -116,34 +118,35 @@ var_declaration:    type_specifier ID ';' { printf("tipo = %s id = %s\n",)st.id 
                                             else {
                                                 printf("Variavel já presente\n");
                                             }
-                                            printf("Aqui tem uma declaracao id %s!\n", $<cadeia>2  );}
+                                            printf("Aqui tem uma declaracao id %s %s!\n", $<cadeia>1, $<cadeia>2  );}
 ;
-type_specifier: TYPE {;}
+type_specifier: TYPE {  //vetorTemp = $$<cadeia>;
+                        //printf("vetor temp = %s\n",$<cadeia>1);
+                        }
 ;
-lista_cmds: cmd		{;}
-            | cmd ';' lista_cmds	{;}
+lista_cmds:     cmd		{;}
+            |   cmd ';' lista_cmds	{;}
 ;
 cmd:		ID OP_ATTR exp			{
-                                        printf("%s\n",st.id);
-                                        if (ProcuraLista(lista,$<cadeia>1) == 0) {
+                                        if (ProcuraLista(lista, $<cadeia>1) == 0) {
                                             printf("Variavel não foi declarada\n");
                                         }
                                         else {
                                             printf("retornou 1\n");
                                         }
                                         printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );}
-            | cond
+            |   cond
 ;
-exp:		INT				{;}
-            | ID				{
-                                    printf("%s\n",$<cadeia>1);
+exp:            INT				{;}
+            |   ID				{
+                
                                     printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );
-                                    if (ProcuraLista(lista,$<cadeia>1) == 0) {
+                                    if (ProcuraLista(lista, $<cadeia>1) == 0) {
                                         printf("Variavel não foi declarada\n");
                                     }
                                     else {
                                         printf("retornou 1\n");
-                                    }}
+                                    };}
             | exp exp OP_ART		{;}
 ;
 cond:       OP_IF cmd OP_ELSE cmd  {;}

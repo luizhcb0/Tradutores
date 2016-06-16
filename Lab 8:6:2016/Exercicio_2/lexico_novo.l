@@ -12,7 +12,7 @@
     #include "Sintatico.tab.h"
 %}
 %%
-("int"|"void")                    {return TYPE;}
+("int"|"void")                    { yylval.cadeia= (char*) strdup(yytext); return TYPE;}
 ("{")                             {return BLCK_DEL_O;}
 ("}")                             {return BLCK_DEL_C;}
 ("if")                                {return OP_IF;}
