@@ -27,27 +27,35 @@
         *epinicio = NULL;
     }
     
-    void InsereLista(listaS **epinicio, symbol_t *valnovo){
+    void InsereLista(listaS **epinicio, char *tipo, char *id){
         listaS *p1, *p2;
         
+        symbol_t s;
+        
+        s.id = id;
+        s.tipo = tipo;
+        s.usado = 0;
+        
+        
         p1 = malloc (sizeof (listaS));
-        p1->val = valnovo;
+        p1->val = &s;
         if (*epinicio == NULL) {
             *epinicio = p1;
             p1->prox = NULL;
         }
         else
-        if ((*epinicio)->val > valnovo) {
+        if ((*epinicio)->val > &s) {
             p1->prox = *epinicio;
             *epinicio = p1;
         }
         else {
             p2 = *epinicio;
-            while ((p2->prox != NULL) && (p2->prox->val < valnovo))
+            while ((p2->prox != NULL) && (p2->prox->val < &s))
             p2 = p2->prox;
             p1->prox = p2->prox;
             p2->prox = p1;
-        }       
+        }
+        printf("valor na lista = %s %s\n",p1->val->tipo, p1->val->id);
     }
     
     int ProcuraLista(listaS *pinicio, char *chave) {
@@ -98,12 +106,12 @@ declaration_list:   declaration_list declaration  {;}
 ;
 declaration:       var_declaration  {;}
 ;
-var_declaration:    type_specifier ID ';' { //st.id = $<cadeia>2;
+var_declaration:    type_specifier ID ';' { printf("tipo = %s id = %s\n",)st.id = $<cadeia>2;
                                             if (lista == NULL) {
                                                 ConstroiLista(&lista);
                                             }
                                             if (ProcuraLista(lista,st.id) == 0) {
-                                                InsereLista(&lista, $<cadeia>2);
+                                                InsereLista(&lista, $<cadeia>1, $<cadeia>2);
                                             }
                                             else {
                                                 printf("Variavel já presente\n");
@@ -118,7 +126,7 @@ lista_cmds: cmd		{;}
 cmd:		ID OP_ATTR exp			{
                                         printf("%s\n",st.id);
                                         if (ProcuraLista(lista,$<cadeia>1) == 0) {
-                                            printf("Variavel não foi declarada");
+                                            printf("Variavel não foi declarada\n");
                                         }
                                         else {
                                             printf("retornou 1\n");
@@ -131,7 +139,7 @@ exp:		INT				{;}
                                     printf("%s\n",$<cadeia>1);
                                     printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );
                                     if (ProcuraLista(lista,$<cadeia>1) == 0) {
-                                        printf("Variavel não foi declarada");
+                                        printf("Variavel não foi declarada\n");
                                     }
                                     else {
                                         printf("retornou 1\n");
