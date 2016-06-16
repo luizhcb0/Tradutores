@@ -64,7 +64,7 @@
         p1 = pinicio;
         while ((p1 != NULL)) {
             //printf("percorrendo : %s\n",p1->val->id);
-            printf("%d e %d\n",&(p1)->val->id, &chave);
+            printf("%s e %s\n",p1->val->id, chave);
             getchar();
             getchar();
             if(!strcmp( p1->val->id, chave)) {
@@ -112,16 +112,20 @@ declaration_list:   declaration_list declaration  {;}
 declaration:       var_declaration  {;}
 ;
 var_declaration:    type_specifier ID ';' {
+                                            char *cadeia2, *cadeia1;
+                                            strcpy(cadeia2,$<cadeia>2);
+                                            strcpy(cadeia1,$<cadeia>1);
                                             if (lista == NULL) {
                                                 ConstroiLista(&lista);
                                             }
-                                            if (ProcuraLista(lista, $<cadeia>2) == 0) {
-                                                InsereLista(&lista, $<cadeia>1, $<cadeia>2);
+                                            if (ProcuraLista(lista, cadeia2) == 0) {
+                                                printf("Vai inserir\n");
+                                                InsereLista(&lista, cadeia1, cadeia2);
                                             }
                                             else {
                                                 printf("Variavel já presente\n");
                                             }
-                                            printf("Aqui tem uma declaracao id %s %s!\n", $<cadeia>1, $<cadeia>2  );}
+                                            printf("Aqui tem uma declaracao id %s %s!\n", cadeia1, cadeia2  );}
 ;
 type_specifier: TYPE {  //vetorTemp = $$<cadeia>;
                         //printf("vetor temp = %s\n",$<cadeia>1);
@@ -131,20 +135,26 @@ lista_cmds:     cmd		{;}
             |   cmd ';' lista_cmds	{;}
 ;
 cmd:		ID OP_ATTR exp			{
-                                        if (ProcuraLista(lista, $<cadeia>1) == 0) {
+                                        char *cadeia2, *cadeia1;
+                                        //strcpy(cadeia2,$<cadeia>2);
+                                        strcpy(cadeia1,$<cadeia>1);
+                                        if (ProcuraLista(lista, cadeia1) == 0) {
                                             printf("Variavel não foi declarada\n");
                                         }
                                         else {
                                             printf("retornou 1\n");
                                         }
-                                        printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );}
+                                        printf("Aqui tem um uso de id %s!\n", cadeia1 );}
             |   cond
 ;
 exp:            INT				{;}
             |   ID				{
+                                    char *cadeia2, *cadeia1;
+                                    //strcpy(cadeia2,$<cadeia>2);
+                                    strcpy(cadeia1,$<cadeia>1);
                 
-                                    printf("Aqui tem um uso de id %s!\n", $<cadeia>1 );
-                                    if (ProcuraLista(lista, $<cadeia>1) == 0) {
+                                    printf("Aqui tem um uso de id %s!\n", cadeia1 );
+                                    if (ProcuraLista(lista, cadeia1) == 0) {
                                         printf("Variavel não foi declarada\n");
                                     }
                                     else {
