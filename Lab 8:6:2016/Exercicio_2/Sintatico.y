@@ -122,7 +122,6 @@ declaration_list:   declaration_list declaration  {;}
 declaration:       var_declaration  {;}
 ;
 var_declaration:    type_specifier ID ';' {
-<<<<<<< HEAD
                                             char *cadeia2, *cadeia1;
                                             strcpy(cadeia2,$<cadeia>2);
                                             strcpy(cadeia1,$<cadeia>1);
@@ -132,13 +131,10 @@ var_declaration:    type_specifier ID ';' {
                                             if (ProcuraLista(lista, cadeia2) == 0) {
                                                 printf("Vai inserir\n");
                                                 InsereLista(&lista, cadeia1, cadeia2);
-=======
-                                            //if (lista == NULL) {
-                                            //    ConstroiLista(&lista);
-                                            //}
+
                                             if (ProcuraLista(lista, $<cadeia>2) == 0) {
                                                 InsereLista(&lista, $<cadeia>1, $<cadeia>2);
->>>>>>> origin/master
+
                                             }
                                             else {
                                                 printf("Variavel já presente\n");
