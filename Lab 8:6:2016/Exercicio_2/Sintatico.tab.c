@@ -169,7 +169,7 @@
         p1 = pinicio;
         while ((p1 != NULL)) {
             //printf("percorrendo : %s\n",p1->val->id);
-            printf("%s e %s\n",p1->val->id, chave);
+            printf("%d e %d\n",&(p1)->val->id, &chave);
             getchar();
             getchar();
             if(!strcmp( p1->val->id, chave)) {
@@ -514,8 +514,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
+<<<<<<< HEAD
        0,   115,   115,   116,   117,   119,   120,   122,   124,   144,
      148,   149,   151,   162,   164,   165,   177,   179
+=======
+       0,   105,   105,   106,   107,   109,   110,   112,   114,   126,
+     130,   131,   133,   141,   143,   144,   153,   155
+>>>>>>> parent of 69ff49d... Erro no strcpy
 };
 #endif
 
@@ -1462,15 +1467,11 @@ yyreduce:
   case 8:
 #line 124 "Sintatico.y"
     {
-                                            char *cadeia2, *cadeia1;
-                                            strcpy(cadeia2,(yyvsp[(2) - (3)].cadeia));
-                                            strcpy(cadeia1,(yyvsp[(1) - (3)].cadeia));
                                             if (lista == NULL) {
                                                 ConstroiLista(&lista);
                                             }
-                                            if (ProcuraLista(lista, cadeia2) == 0) {
-                                                printf("Vai inserir\n");
-                                                InsereLista(&lista, cadeia1, cadeia2);
+                                            if (ProcuraLista(lista, (yyvsp[(2) - (3)].cadeia)) == 0) {
+                                                InsereLista(&lista, (yyvsp[(1) - (3)].cadeia), (yyvsp[(2) - (3)].cadeia));
                                             }
                                             if (ProcuraLista(lista, (yyvsp[(2) - (3)].cadeia)) == 0) {
                                                 InsereLista(&lista, (yyvsp[(1) - (3)].cadeia), (yyvsp[(2) - (3)].cadeia));
@@ -1479,55 +1480,73 @@ yyreduce:
                                             else {
                                                 printf("Variavel já presente\n");
                                             }
-                                            printf("Aqui tem uma declaracao id %s %s!\n", cadeia1, cadeia2  );;}
+                                            printf("Aqui tem uma declaracao id %s %s!\n", (yyvsp[(1) - (3)].cadeia), (yyvsp[(2) - (3)].cadeia)  );;}
     break;
 
   case 9:
+<<<<<<< HEAD
 #line 144 "Sintatico.y"
+=======
+#line 126 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
     {  //vetorTemp = $$<cadeia>;
                         //printf("vetor temp = %s\n",$<cadeia>1);
                         ;}
     break;
 
   case 10:
+<<<<<<< HEAD
 #line 148 "Sintatico.y"
+=======
+#line 130 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
     {;;}
     break;
 
   case 11:
+<<<<<<< HEAD
 #line 149 "Sintatico.y"
+=======
+#line 131 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
     {;;}
     break;
 
   case 12:
+<<<<<<< HEAD
 #line 151 "Sintatico.y"
+=======
+#line 133 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
     {
-                                        char *cadeia2, *cadeia1;
-                                        //strcpy(cadeia2,$<cadeia>2);
-                                        strcpy(cadeia1,(yyvsp[(1) - (3)].cadeia));
-                                        if (ProcuraLista(lista, cadeia1) == 0) {
+                                        if (ProcuraLista(lista, (yyvsp[(1) - (3)].cadeia)) == 0) {
                                             printf("Variavel não foi declarada\n");
                                         }
                                         else {
                                             printf("retornou 1\n");
                                         }
-                                        printf("Aqui tem um uso de id %s!\n", cadeia1 );;}
+                                        printf("Aqui tem um uso de id %s!\n", (yyvsp[(1) - (3)].cadeia) );;}
     break;
 
   case 14:
+<<<<<<< HEAD
 #line 164 "Sintatico.y"
+=======
+#line 143 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
     {;;}
     break;
 
   case 15:
+<<<<<<< HEAD
 #line 165 "Sintatico.y"
+=======
+#line 144 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
     {
-                                    char *cadeia2, *cadeia1;
-                                    //strcpy(cadeia2,$<cadeia>2);
-                                    strcpy(cadeia1,(yyvsp[(1) - (1)].cadeia));
                 
-                                    printf("Aqui tem um uso de id %s!\n", cadeia1 );
-                                    if (ProcuraLista(lista, cadeia1) == 0) {
+                                    printf("Aqui tem um uso de id %s!\n", (yyvsp[(1) - (1)].cadeia) );
+                                    if (ProcuraLista(lista, (yyvsp[(1) - (1)].cadeia)) == 0) {
                                         printf("Variavel não foi declarada\n");
                                     }
                                     else {
@@ -1536,18 +1555,30 @@ yyreduce:
     break;
 
   case 16:
+<<<<<<< HEAD
 #line 177 "Sintatico.y"
+=======
+#line 153 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
     {;;}
     break;
 
   case 17:
+<<<<<<< HEAD
 #line 179 "Sintatico.y"
+=======
+#line 155 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
     {;;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
+<<<<<<< HEAD
 #line 1551 "Sintatico.tab.c"
+=======
+#line 1527 "Sintatico.tab.c"
+>>>>>>> parent of 69ff49d... Erro no strcpy
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1761,7 +1792,11 @@ yyreturn:
 }
 
 
+<<<<<<< HEAD
 #line 181 "Sintatico.y"
+=======
+#line 157 "Sintatico.y"
+>>>>>>> parent of 69ff49d... Erro no strcpy
 
 main (int argc, char *argv[]) {
 
