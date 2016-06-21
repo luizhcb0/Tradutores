@@ -1498,7 +1498,7 @@ yyreduce:
   case 15:
 #line 141 "Sintatico.y"
     {
-                printf("o que esta escrito aqui = %s\n", (yyvsp[(1) - (1)].cadeia));
+                
                                     printf("Aqui tem um uso de id %s!\n", (yyvsp[(1) - (1)].cadeia) );
                                     if (ProcuraLista(lista, (yyvsp[(1) - (1)].cadeia)) == 0) {
                                         printf("Variavel não foi declarada\n");
