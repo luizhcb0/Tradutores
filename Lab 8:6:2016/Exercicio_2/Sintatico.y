@@ -21,8 +21,8 @@
 
 
     void ConstroiLista(listaS **epinicio) {
-        //listaS *p1;
-        //char c;
+        listaS *p1;
+        char c;
         printf("Construiu a lista\n");
         *epinicio = NULL;
     }
@@ -58,55 +58,13 @@
         printf("valor na lista = %s %s\n",(*epinicio)->val->tipo, (*epinicio)->val->id);
     }
     
-    
-    /////////////////////////////////
-    
-    void InsereLista(listaS **epinicio, char *tipo, char *id){
-        listaS *p1, *p2;
-        
-        //Valor da lista
-        symbol_t *s;
-        s = malloc(sizeof(s));
-        s->id = id;
-        s->tipo = tipo;
-        s->usado = 0;
-        
-        //Elemento da lista
-        p1 = malloc (sizeof (listaS));
-        p1->val = s;
-        p1->prox = NULL;
-        
-        if (*epinicio == NULL){//Lista vazia
-            *epinicio = p1;
-        }
-        else{//Coloca elemento no fim da lista
-            p2 = *epinicio;
-            while( p2->prox != NULL )//percorre a lista ate' encontrar o u'ltimo elemento
-            p2 = p2->prox;
-            
-            //Encontrei o u'ltimo elemento
-            p2->prox = p1;
-            
-        }
-        printf("valor na lista = %s %s\n",p2->val->tipo, p2->val->id);
-    }
-
-    
-    ////////////////////////////////
-    
-    
-    
-    
-    
-    
-    
     int ProcuraLista(listaS *pinicio, char *chave) {
         listaS *p1;
         
         p1 = pinicio;
         while ((p1 != NULL)) {
             //printf("percorrendo : %s\n",p1->val->id);
-            printf("%s e %s\n",p1->val->id, chave);
+            printf("%d e %d\n",&(p1)->val->id, &chave);
             getchar();
             getchar();
             if(!strcmp( p1->val->id, chave)) {
@@ -124,9 +82,6 @@
     
 
 %}
-
-
-
 
 %union{
 	char* cadeia;
