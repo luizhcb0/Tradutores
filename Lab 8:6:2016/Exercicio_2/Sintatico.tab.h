@@ -68,7 +68,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 96 "Sintatico.y"
+#line 102 "Sintatico.y"
 {
 	char* cadeia;
 }
