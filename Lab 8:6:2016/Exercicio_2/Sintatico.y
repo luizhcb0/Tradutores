@@ -27,35 +27,35 @@
         *epinicio = NULL;
     }
     
+    
     void InsereLista(listaS **epinicio, char *tipo, char *id){
         listaS *p1, *p2;
         
-        symbol_t s;
+        //Valor da lista
+        symbol_t *s;
+        s = (symbol_t *) malloc(sizeof(symbol_t));
+        s->id = id;
+        s->tipo = tipo;
+        s->usado = 0;
         
-        s.id = id;
-        s.tipo = tipo;
-        s.usado = 0;
+        //Elemento da lista
+        p1 = (listaS *) malloc (sizeof (listaS));
+        p1->val = s;
+        p1->prox = NULL;
         
-        
-        p1 = malloc (sizeof (listaS));
-        p1->val = &s;
-        if (*epinicio == NULL) {
-            *epinicio = p1;
-            p1->prox = NULL;
-        }
-        else
-        if ((*epinicio)->val > &s) {
-            p1->prox = *epinicio;
+        if (*epinicio == NULL){//Lista vazia
             *epinicio = p1;
         }
-        else {
+        else{//Coloca elemento no fim da lista
             p2 = *epinicio;
-            while ((p2->prox != NULL) && (p2->prox->val < &s))
+            while( p2->prox != NULL )//percorre a lista ate encontrar o ultimo elemento
             p2 = p2->prox;
-            p1->prox = p2->prox;
+            
+            //Encontrei o ultimo elemento
             p2->prox = p1;
+            
         }
-        printf("valor na lista = %s %s\n",p1->val->tipo, p1->val->id);
+        //printf("valor na lista = %s %s\n",p2->val->tipo, p2->val->id);
     }
     
     int ProcuraLista(listaS *pinicio, char *chave) {
@@ -64,6 +64,9 @@
         p1 = pinicio;
         while ((p1 != NULL)) {
             //printf("percorrendo : %s\n",p1->val->id);
+            printf("%s e %s\n",p1->val->id, chave);
+            getchar();
+            getchar();
             if(!strcmp( p1->val->id, chave)) {
                 return 1;
             }
@@ -112,7 +115,8 @@ var_declaration:    type_specifier ID ';' {
                                             if (lista == NULL) {
                                                 ConstroiLista(&lista);
                                             }
-                                            if (ProcuraLista(lista,st.id) == 0) {
+
+                                            if (ProcuraLista(lista, $<cadeia>2) == 0) {
                                                 InsereLista(&lista, $<cadeia>1, $<cadeia>2);
                                             }
                                             else {

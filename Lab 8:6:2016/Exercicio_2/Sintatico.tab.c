@@ -122,35 +122,35 @@
         *epinicio = NULL;
     }
     
+    
     void InsereLista(listaS **epinicio, char *tipo, char *id){
         listaS *p1, *p2;
         
-        symbol_t s;
+        //Valor da lista
+        symbol_t *s;
+        s = (symbol_t *) malloc(sizeof(symbol_t));
+        s->id = id;
+        s->tipo = tipo;
+        s->usado = 0;
         
-        s.id = id;
-        s.tipo = tipo;
-        s.usado = 0;
+        //Elemento da lista
+        p1 = (listaS *) malloc (sizeof (listaS));
+        p1->val = s;
+        p1->prox = NULL;
         
-        
-        p1 = malloc (sizeof (listaS));
-        p1->val = &s;
-        if (*epinicio == NULL) {
-            *epinicio = p1;
-            p1->prox = NULL;
-        }
-        else
-        if ((*epinicio)->val > &s) {
-            p1->prox = *epinicio;
+        if (*epinicio == NULL){//Lista vazia
             *epinicio = p1;
         }
-        else {
+        else{//Coloca elemento no fim da lista
             p2 = *epinicio;
-            while ((p2->prox != NULL) && (p2->prox->val < &s))
+            while( p2->prox != NULL )//percorre a lista ate encontrar o ultimo elemento
             p2 = p2->prox;
-            p1->prox = p2->prox;
+            
+            //Encontrei o ultimo elemento
             p2->prox = p1;
+            
         }
-        printf("valor na lista = %s %s\n",p1->val->tipo, p1->val->id);
+        //printf("valor na lista = %s %s\n",p2->val->tipo, p2->val->id);
     }
     
     int ProcuraLista(listaS *pinicio, char *chave) {
@@ -159,6 +159,9 @@
         p1 = pinicio;
         while ((p1 != NULL)) {
             //printf("percorrendo : %s\n",p1->val->id);
+            printf("%s e %s\n",p1->val->id, chave);
+            getchar();
+            getchar();
             if(!strcmp( p1->val->id, chave)) {
                 return 1;
             }
@@ -195,12 +198,12 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 83 "Sintatico.y"
+#line 86 "Sintatico.y"
 {
 	char* cadeia;
 }
 /* Line 193 of yacc.c.  */
-#line 204 "Sintatico.tab.c"
+#line 207 "Sintatico.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -213,7 +216,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 217 "Sintatico.tab.c"
+#line 220 "Sintatico.tab.c"
 
 #ifdef short
 # undef short
@@ -501,8 +504,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   102,   102,   103,   104,   106,   107,   109,   111,   123,
-     127,   128,   130,   138,   140,   141,   150,   152
+       0,   105,   105,   106,   107,   109,   110,   112,   114,   127,
+     131,   132,   134,   142,   144,   145,   154,   156
 };
 #endif
 
@@ -1417,42 +1420,43 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 102 "Sintatico.y"
+#line 105 "Sintatico.y"
     {printf ("Programa sintaticamente correto!\n");;}
     break;
 
   case 3:
-#line 103 "Sintatico.y"
+#line 106 "Sintatico.y"
     {printf ("Programa sintaticamente correto!\n");;}
     break;
 
   case 4:
-#line 104 "Sintatico.y"
+#line 107 "Sintatico.y"
     {printf ("Programa sintaticamente correto!\n");;}
     break;
 
   case 5:
-#line 106 "Sintatico.y"
-    {;;}
-    break;
-
-  case 6:
-#line 107 "Sintatico.y"
-    {;;}
-    break;
-
-  case 7:
 #line 109 "Sintatico.y"
     {;;}
     break;
 
+  case 6:
+#line 110 "Sintatico.y"
+    {;;}
+    break;
+
+  case 7:
+#line 112 "Sintatico.y"
+    {;;}
+    break;
+
   case 8:
-#line 111 "Sintatico.y"
+#line 114 "Sintatico.y"
     {
                                             if (lista == NULL) {
                                                 ConstroiLista(&lista);
                                             }
-                                            if (ProcuraLista(lista,st.id) == 0) {
+
+                                            if (ProcuraLista(lista, (yyvsp[(2) - (3)].cadeia)) == 0) {
                                                 InsereLista(&lista, (yyvsp[(1) - (3)].cadeia), (yyvsp[(2) - (3)].cadeia));
                                             }
                                             else {
@@ -1462,24 +1466,24 @@ yyreduce:
     break;
 
   case 9:
-#line 123 "Sintatico.y"
+#line 127 "Sintatico.y"
     {  //vetorTemp = $$<cadeia>;
                         //printf("vetor temp = %s\n",$<cadeia>1);
                         ;}
     break;
 
   case 10:
-#line 127 "Sintatico.y"
+#line 131 "Sintatico.y"
     {;;}
     break;
 
   case 11:
-#line 128 "Sintatico.y"
+#line 132 "Sintatico.y"
     {;;}
     break;
 
   case 12:
-#line 130 "Sintatico.y"
+#line 134 "Sintatico.y"
     {
                                         if (ProcuraLista(lista, (yyvsp[(1) - (3)].cadeia)) == 0) {
                                             printf("Variavel não foi declarada\n");
@@ -1491,12 +1495,12 @@ yyreduce:
     break;
 
   case 14:
-#line 140 "Sintatico.y"
+#line 144 "Sintatico.y"
     {;;}
     break;
 
   case 15:
-#line 141 "Sintatico.y"
+#line 145 "Sintatico.y"
     {
                 
                                     printf("Aqui tem um uso de id %s!\n", (yyvsp[(1) - (1)].cadeia) );
@@ -1509,18 +1513,18 @@ yyreduce:
     break;
 
   case 16:
-#line 150 "Sintatico.y"
+#line 154 "Sintatico.y"
     {;;}
     break;
 
   case 17:
-#line 152 "Sintatico.y"
+#line 156 "Sintatico.y"
     {;;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1524 "Sintatico.tab.c"
+#line 1528 "Sintatico.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1734,7 +1738,7 @@ yyreturn:
 }
 
 
-#line 154 "Sintatico.y"
+#line 158 "Sintatico.y"
 
 main (int argc, char *argv[]) {
 
