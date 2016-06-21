@@ -131,7 +131,7 @@ var_declaration:    type_specifier ID ';' {
                                             if (ProcuraLista(lista, cadeia2) == 0) {
                                                 printf("Vai inserir\n");
                                                 InsereLista(&lista, cadeia1, cadeia2);
-
+                                            }
                                             if (ProcuraLista(lista, $<cadeia>2) == 0) {
                                                 InsereLista(&lista, $<cadeia>1, $<cadeia>2);
 
@@ -187,14 +187,14 @@ main (int argc, char *argv[]) {
 //  	yydebug = 1; 
     if (argc > 1) {
         yyin = fopen(argv[1],"rt");
-        yyout = fopen(argv[2], "wt");
+        //yyout = fopen(argv[2], "wt");
     }
     //else {
     //    yyin = stdin;
     //}
     yyparse ();
     fclose(yyin);
-    fclose(yyout);
+    //fclose(yyout);
 }
 yyerror (s) /* Called by yyparse on error */
 char *s;
